@@ -54,18 +54,19 @@
 
   class Product{
     constructor(id, data){
-      const thisProduct = this;
+      const thisProduct = this; // pojedynczy produkt
 
       thisProduct.id = id;
-      thisProduct.data = data;
+      thisProduct.data = data; // zapisujemy wlaściwości instancji
+      // produkty wyświetlają się w konsoli
 
       thisProduct.renderInMenu();
 
       console.log('new product:', thisProduct);
     }
 
-    renderInMenu(){
-      const thisProduct = this;
+    renderInMenu(){ // wyświetlanie produktów na stronie
+      const thisProduct = this; // pojedynczy produkt
 
       /* generate HTML based on template */
       const generatedHTML = templates.menuProduct(thisProduct.data);
@@ -84,17 +85,19 @@
 
   const app = {
     initMenu: function(){
+      // const testProduct = new Product();
+      // console.log('testProduct: ', testProduct);
       const thisApp = this;
       console.log('thisApp.data:', thisApp.data);
 
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
+        // ta pętla wypisze nam poszczególne produkty bez zawartości
+        // żeby pobrała zawartość trzeba w konstruktorze dodać argumenty id i data
+        // tworzy instancję Product
       }
-      // const thisApp = this;
-      // console.log('thisApp.data: ', thisApp.data);
-      // const testProduct = new Product();
-      // console.log('testProduct: ', testProduct);
     },
+
 
     initData: function(){
       const thisApp = this;
