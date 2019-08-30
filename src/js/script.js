@@ -61,8 +61,9 @@
       // display products in console
 
       thisProduct.renderInMenu();
-
       console.log('new product:', thisProduct);
+
+      thisProduct.getElements();
     }
 
     renderInMenu(){ // display produts on site
@@ -79,37 +80,47 @@
 
       /* add element to menu */
       menuContainer.appendChild(thisProduct.element);
+    }
 
+    getElements(){ // how to find elements in product's container
+      const thisProduct = this;
+
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
     }
 
     initAccordion(){
       const thisProduct = this;
 
       /* find the clickable trigger (the element that should react to clicking) */
-      const trigger = thisProduct.querySelector(select.menuProduct.clickable);
+      // const trigger = thisProduct.querySelector(select.menuProduct.clickable);
+      const trigger = thisProduct.accordionTrigger;
 
       /* START: click event listener to trigger */
-      trigger.addEventListener('click', function(){
+      trigger.addEventListener('click', function(event){
 
         /* prevent default action for event */
         event.preventDefault();
 
         /* toggle active class on element of thisProduct */
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
-
       });
 
+
       /* find all active products */
-      const activeProducts = document.querySelectorAll(select.menuProduct.clickable);
+      const activeProducts = document.querySelectorAll(select.all.menuProducts.active);
 
       /* START LOOP: for each active product */
       for(let activeProduct in activeProducts){
 
         /* START: if the active product isn't the element of thisProduct */
-        if (activeProduct == !thisProduct.element) {
+        if (activeProduct !== thisProduct.element) {
 
           /* remove class active for the active product */
-          activeProduct.remove('active');
+          activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
 
           /* END: if the active product isn't the element of thisProduct */
         }
