@@ -90,31 +90,31 @@
 
       /* START: click event listener to trigger */
       trigger.addEventListener('click', function(){
-        console.log('clicked');
-      });
 
         /* prevent default action for event */
         event.preventDefault();
 
         /* toggle active class on element of thisProduct */
-        const toggle = thisProduct.element(classNames.menuProduct.wrapperActive);
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
 
-        /* find all active products */
-        const activeProducts = document.querySelectorAll(select.menuProduct.clickable);
+      });
 
-        /* START LOOP: for each active product */
-        for(let activeProduct in activeProducts){
+      /* find all active products */
+      const activeProducts = document.querySelectorAll(select.menuProduct.clickable);
 
-          /* START: if the active product isn't the element of thisProduct */
-          if (!activeProduct == thisProduct.element) {
+      /* START LOOP: for each active product */
+      for(let activeProduct in activeProducts){
 
-            /* remove class active for the active product */
-            activeProduct.remove('active');
+        /* START: if the active product isn't the element of thisProduct */
+        if (activeProduct == !thisProduct.element) {
+
+          /* remove class active for the active product */
+          activeProduct.remove('active');
 
           /* END: if the active product isn't the element of thisProduct */
-            
-        /* END LOOP: for each active product */
         }
+        /* END LOOP: for each active product */
+      }
       /* END: click event listener to trigger */
     }
   }
