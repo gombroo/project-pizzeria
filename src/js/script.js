@@ -64,7 +64,8 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      console.log('new product:', thisProduct);
+      thisProduct.processOrder();
+      //console.log('new product:', thisProduct);
     }
 
     renderInMenu(){ // display produts on site
@@ -131,20 +132,82 @@
 
     initOrderForm(){
       const thisProduct = this;
-      console.log('initOrderForm');
+      //console.log('initOrderForm');
+
+      thisProduct.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+
+      for(let input of thisProduct.formInputs){
+        input.addEventListener('change', function(){
+          thisProduct.processOrder();
+        });
+      }
+
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
+        thisProduct.processOrder;
+      });
+
     }
 
     processOrder(){
       const thisProduct = this;
-      console.log('processOrder');
-    }
 
+      /* read all data from the form and save it to const formData */
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      // console.log('formData', formData);
+
+      /* set variable price to equal thisProduct.data.price */
+      const price = thisProduct.data.price;
+      // console.log('Price:', price);
+
+      /* START LOOP: for each paramId in thisProduct.data.params */
+      /* save the element in thisProduct.data.params with key paramId as const param */
+      for(let paramId in thisProduct.data.params){
+        console.log('Product data params:', thisProduct.data.params);
+
+        /* START LOOP: for each optionId in param.options */
+        /* save the element in param.options with key optionId as const option */
+        for(let optionId in paramId.options){
+
+          /* START IF: if option is selected and option is not default */
+          /* add price of option to variable price */
+          const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+          if(optionSelected && !option.default){
+            optionId.price + priceElem
+          /* END IF: if option is selected and option is not default */
+          }
+
+
+
+        /* END LOOP: for each optionId */
+        }
+
+
+
+
+
+      /* END LOOP: for each paramId */
+      }
+
+
+
+
+
+
+
+
+
+
+      //console.log('processOrder');
+
+    }
   }
 
   const app = {
     initMenu: function(){
-      // const testProduct = new Product();
-      // console.log('testProduct: ', testProduct);
       const thisApp = this;
       console.log('thisApp.data:', thisApp.data);
 
@@ -155,7 +218,6 @@
         // tworzy instancję Product
       }
     },
-
 
     initData: function(){
       const thisApp = this;
