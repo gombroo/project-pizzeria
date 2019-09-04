@@ -179,13 +179,12 @@
 
           if(optionSelected && !option.default){
             price = price + option.price;
-            console.log('Show price 1: ', price);
 
           /* END IF: if option is selected and option is not default */
           }
 
           /* START ELSE IF: if option is not selected and option is default */
-          /* deduct price of option from price */
+          /* odlicz price of option from price */
           else if(!optionSelected && option.default){
             price = price - option.price;
 
@@ -199,8 +198,8 @@
       }
 
       /* set the contents of thisProduct.priceElem to be the value of variable price */
-
-      price = thisProduct.priceElem;
+      thisProduct.priceElem = price;
+      console.log('Total price:', price);
 
     }
 
