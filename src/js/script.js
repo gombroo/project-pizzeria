@@ -16,7 +16,7 @@
       menuProductsActive: '#product-list > .product.active',
       formInputs: 'input, select',
     },
-    menuProduct: {
+    menuProduct: { // selektor szablonu produktu
       clickable: '.product__header',
       form: '.product__order',
       priceElem: '.product__total-price .price',
@@ -65,7 +65,7 @@
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.processOrder();
-      //console.log('new product:', thisProduct);
+      // console.log('new product:', thisProduct);
     }
 
     renderInMenu(){ // display produts on site
@@ -149,7 +149,6 @@
         event.preventDefault();
         thisProduct.processOrder;
       });
-
     }
 
     processOrder(){
@@ -157,53 +156,55 @@
 
       /* read all data from the form and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
-      // console.log('formData', formData);
+      console.log('Show all data from the form:', formData);
 
       /* set variable price to equal thisProduct.data.price */
-      const price = thisProduct.data.price;
-      // console.log('Price:', price);
+      let price = thisProduct.data.price;
 
       /* START LOOP: for each paramId in thisProduct.data.params */
       /* save the element in thisProduct.data.params with key paramId as const param */
       for(let paramId in thisProduct.data.params){
-        console.log('Product data params:', thisProduct.data.params);
+        const param = thisProduct.data.params[paramId];
+        console.log('Show param:', param); // sos, ciasto, dodatki
 
         /* START LOOP: for each optionId in param.options */
         /* save the element in param.options with key optionId as const option */
-        for(let optionId in paramId.options){
+        for(let optionId in param.options){
+          const option = param.options[optionId];
+          console.log('Show option:', option); // oliwki, papryczki
 
           /* START IF: if option is selected and option is not default */
           /* add price of option to variable price */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+
           if(optionSelected && !option.default){
-            optionId.price + priceElem
+            price = price + option.price;
+            console.log('Show price 1: ', price);
+
           /* END IF: if option is selected and option is not default */
           }
 
+          /* START ELSE IF: if option is not selected and option is default */
+          /* deduct price of option from price */
+          else if(!optionSelected && option.default){
+            price = price - option.price;
 
+          /* END ELSE IF: if option is not selected and option is default */
+          }
 
-        /* END LOOP: for each optionId */
+          /* END LOOP: for each optionId in param.options */
         }
 
-
-
-
-
-      /* END LOOP: for each paramId */
+        /* END LOOP: for each paramId in thisProduct.data.params */
       }
 
+      /* set the contents of thisProduct.priceElem to be the value of variable price */
 
-
-
-
-
-
-
-
-
-      //console.log('processOrder');
+      price = thisProduct.priceElem;
 
     }
+
+  /* END class Product */
   }
 
   const app = {
