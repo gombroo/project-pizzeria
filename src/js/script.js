@@ -190,17 +190,17 @@
 
           /* END ELSE IF: if option is not selected and option is default */
           }
-
           /* END LOOP: for each optionId in param.options */
         }
-
         /* END LOOP: for each paramId in thisProduct.data.params */
       }
 
       /* set the contents of thisProduct.priceElem to be the value of variable price */
-      thisProduct.priceElem = price;
-      console.log('Total price:', price);
-
+      // thisProduct.priceElem = price; // shows price in console only
+      // let totalPrice = thisProduct.priceElem;
+      // totalPrice.innerHTML = price;
+      thisProduct.priceElem.innerHTML = price;
+      console.log('Show total price:', price);
     }
 
   /* END class Product */
