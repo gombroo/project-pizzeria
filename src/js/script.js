@@ -64,8 +64,9 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
-      // console.log('new product:', thisProduct);
+      console.log('new product:', thisProduct);
     }
 
     renderInMenu(){ // display produts on site
@@ -92,6 +93,8 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
 
     initAccordion(){
@@ -156,7 +159,7 @@
 
       /* read all data from the form and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('Show all data from the form:', formData);
+      // console.log('Show all data from the form:', formData);
 
       /* set variable price to equal thisProduct.data.price */
       let price = thisProduct.data.price;
@@ -165,13 +168,13 @@
       /* save the element in thisProduct.data.params with key paramId as const param */
       for(let paramId in thisProduct.data.params){
         const param = thisProduct.data.params[paramId];
-        console.log('Show param:', param); // sos, ciasto, dodatki
+        // console.log('Show param:', param); // sos, ciasto, dodatki
 
         /* START LOOP: for each optionId in param.options */
         /* save the element in param.options with key optionId as const option */
         for(let optionId in param.options){
           const option = param.options[optionId];
-          console.log('Show option:', option); // oliwki, papryczki
+          // console.log('Show option:', option); // oliwki, papryczki
 
           /* START IF: if option is selected and option is not default */
           /* add price of option to variable price */
@@ -190,6 +193,12 @@
 
           /* END ELSE IF: if option is not selected and option is default */
           }
+
+          /* images */
+
+
+
+
           /* END LOOP: for each optionId in param.options */
         }
         /* END LOOP: for each paramId in thisProduct.data.params */
@@ -200,16 +209,63 @@
       // let totalPrice = thisProduct.priceElem;
       // totalPrice.innerHTML = price;
       thisProduct.priceElem.innerHTML = price;
-      console.log('Show total price:', price);
+      // console.log('Show total price:', price);
+    }
+
+    initAmountWidget(){
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
     }
 
   /* END class Product */
   }
 
+  class AmountWidget{
+    constructor(element){
+      const thisWidget = this;
+
+      thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
+
+      console.log('Amout Widget: ', thisWidget);
+      console.log('Constructor arguments: ', element);
+    }
+
+    getElements(element){
+      const thisWidget = this;
+
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+
+    setValue(value){
+      const thisWidget = this;
+      const newValue = parseInt(value);
+
+      /* add validation */
+
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
+      thisWidget.input = thisWidget.value;
+    }
+
+    initActions(){
+
+    }
+
+  /* END class AmountWidget */
+  }
+
+
+
+
   const app = {
     initMenu: function(){
       const thisApp = this;
-      console.log('thisApp.data:', thisApp.data);
+      // console.log('thisApp.data:', thisApp.data);
 
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
