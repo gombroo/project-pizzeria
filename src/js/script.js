@@ -196,7 +196,7 @@
 
           /* images selector  */
 
-          let imagesClass = thisProduct.imageWrapper.querySelectorAll('.' + 'paramId' + '-' + 'optionId');
+          const imagesClass = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
 
           if(optionSelected){
             for(let singleClass of imagesClass){
@@ -265,7 +265,7 @@
 
       /* add validation */
 
-      if(newValue != thisWidget.setValue &&  newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMin){
+      if(newValue != thisWidget.setValue &&  newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax){
         thisWidget.value = newValue;
         thisWidget.announce();
       }
@@ -283,7 +283,6 @@
       thisWidget.linkDecrease.addEventListener('click', function(event){
         event.preventDefault();
         thisWidget.setValue(thisWidget.value -1);
-        console.log(this.widget.value);
       });
 
       thisWidget.linkIncrease.addEventListener('click', function(event){
