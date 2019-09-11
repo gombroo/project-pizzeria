@@ -195,7 +195,7 @@
       /* read all data from the form and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
       // console.log('Show all data from the form:', formData);
-      this.product.params = {}
+      thisProduct.params = {};
 
       /* set variable price to equal thisProduct.data.price */
       let price = thisProduct.data.price;
@@ -285,6 +285,9 @@
     addToCart(){
       const thisProduct = this;
 
+      thisProduct.data.name = thisProduct.name;
+      thisProduct.amountWidget.value = thisProduct.amount;
+
       app.cart.add(thisProduct);
     }
 
@@ -372,6 +375,7 @@
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = document.querySelector(select.cart.toggleTrigger);
+      thisCart.dom.productList = document.querySelector(select.cart.productList);
 
       console.log(Cart);
     }
@@ -385,7 +389,22 @@
     }
 
     add(menuProduct){
-      // const thisCart = this;
+      const thisCart = this;
+
+      /* generate HTML based on template */
+      const generatedHTML = templates.cartProduct(menuProduct);
+      console.log('generatedHTML:', generatedHTML);
+
+      /* create element using utils.createElementFromHTML */
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      console.log('generatedDOM:', generatedDOM);
+
+      /* find cart container */
+      const cartContainer = document.querySelector(select.containerOf.cart);
+      console.log('cartContainer', cartContainer);
+
+      /* add DOM elements to thisCart.dom.productList */
+      thisCart.dom.productList.appendChild(generatedDOM);
 
       console.log('adding product', menuProduct);
     }
