@@ -435,8 +435,8 @@
       };
 
       for(let product of thisCart.products){
-        product.getData();
-        return payload.products.push();
+        payload.products.push(product.getData());
+        // tablica.dodajemy(co co zwracaane przez getData);
       }
 
       const options = {
