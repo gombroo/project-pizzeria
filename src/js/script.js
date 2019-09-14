@@ -388,6 +388,7 @@
       thisCart.dom.toggleTrigger = document.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = document.querySelector(select.cart.productList);
       thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
+      //thisCart.dom.formSubmit = thisCart.dom.wrapper.querySelector(select.cart.formSubmit);
       thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
       thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
 
@@ -414,6 +415,8 @@
         thisCart.remove(event.detail.cartProduct);
       });
 
+      console.log('Show form:', thisCart.dom.form);
+
       thisCart.dom.form.addEventListener('sumbit', function(event){
         event.preventDefault();
         thisCart.sendOrder();
@@ -425,8 +428,8 @@
       const url = settings.db.url + '/' + settings.db.order;
 
       const payload = {
-        address: thisCart.dom.address,
         phone: thisCart.dom.phone,
+        address: thisCart.dom.address,
         totalPrice: thisCart.totalPrice,
         totalNumber: thisCart.totalNumber,
         subtotalPrice: thisCart.subtotalPrice,
@@ -436,7 +439,7 @@
 
       for(let product of thisCart.products){
         payload.products.push(product.getData());
-        // tablica.dodajemy(co co zwracaane przez getData);
+        // tablica.dodajemy(to co zwracaane przez getData);
       }
 
       const options = {
@@ -603,7 +606,7 @@
         amount: thisCartProduct.amount,
         params: thisCartProduct.params,
       };
-      console.log(productInfo);
+      return productInfo;
     }
 
   /* END cart Product */
