@@ -388,7 +388,7 @@
       thisCart.dom.toggleTrigger = document.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = document.querySelector(select.cart.productList);
       thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
-      //thisCart.dom.formSubmit = thisCart.dom.wrapper.querySelector(select.cart.formSubmit);
+      thisCart.dom.formSubmit = thisCart.dom.wrapper.querySelector(select.cart.formSubmit);
       thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
       thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
 
@@ -417,8 +417,9 @@
 
       console.log('Show form:', thisCart.dom.form);
 
-      thisCart.dom.form.addEventListener('sumbit', function(event){
+      thisCart.dom.formSubmit.addEventListener('click', function(event){
         event.preventDefault();
+        console.log('dupa blada');
         thisCart.sendOrder();
       });
     }
