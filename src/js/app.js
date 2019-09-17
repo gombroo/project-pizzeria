@@ -101,9 +101,9 @@ const app = {
 
   initBooking: function(){
     const thisApp = this;
-    const bookingElem = document.querySelector(select.containerOf.booking); // kontener widżetu
+    const bookingElement = document.querySelector(select.containerOf.booking); // kontener widżetu
         
-    thisApp.booking = new Booking(bookingElem); 
+    thisApp.booking = new Booking(bookingElement); 
   },
 
   init: function () {
