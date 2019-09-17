@@ -1,10 +1,7 @@
-import {
-  settings,
-  select,
-  classNames
-} from './settings.js';
+import {settings, select, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
 
 const app = {
   initPages: function () {
@@ -51,7 +48,7 @@ const app = {
       link.classList.toggle(classNames.nav.active, link.getAttribute('href') === '#' + pageId);
     }
   },
-
+ 
   initMenu: function () {
     const thisApp = this;
     // console.log('thisApp.data:', thisApp.data);
@@ -102,21 +99,23 @@ const app = {
     });
   },
 
+  initBooking: function(){
+    const thisApp = this;
+    const bookingElem = document.querySelector(select.containerOf.booking); // kontener widżetu
+        
+    thisApp.booking = new Booking(bookingElem); 
+  },
+
   init: function () {
     const thisApp = this;
-    // console.log('*** App starting ***');
-    // console.log('thisApp:', thisApp);
-    // console.log('classNames:', classNames);
-    // console.log('settings:', settings);
-    // console.log('templates:', templates);
 
     thisApp.initPages();
 
     thisApp.initData();
 
-    // thisApp.initMenu();
-
     thisApp.initCart();
+
+    thisApp.initBooking();
 
   },
 };
