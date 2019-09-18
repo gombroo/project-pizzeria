@@ -48,7 +48,7 @@ const app = {
       link.classList.toggle(classNames.nav.active, link.getAttribute('href') === '#' + pageId);
     }
   },
- 
+
   initMenu: function () {
     const thisApp = this;
     // console.log('thisApp.data:', thisApp.data);
@@ -101,9 +101,9 @@ const app = {
 
   initBooking: function(){
     const thisApp = this;
-    const bookingElement = document.querySelector(select.containerOf.booking); // kontener widżetu
-        
-    thisApp.booking = new Booking(bookingElement); 
+    const bookingElem = document.querySelector(select.containerOf.booking); // kontener widżetu
+
+    thisApp.booking = new Booking(bookingElem);
   },
 
   init: function () {

@@ -50,7 +50,7 @@ class Cart{
       thisCart.remove(event.detail.cartProduct);
     });
 
-    console.log('Show form:', thisCart.dom.form);
+    // console.log('Show form:', thisCart.dom.form);
 
     thisCart.dom.formSubmit.addEventListener('click', function(event){
       event.preventDefault();
