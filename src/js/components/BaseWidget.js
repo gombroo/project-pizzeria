@@ -28,8 +28,8 @@ class BaseWidget {
 
   setValue(value){
     const thisWidget = this;
-
     thisWidget.value = value;
+    // return this.value;
   }
 
   parseValue(value){
