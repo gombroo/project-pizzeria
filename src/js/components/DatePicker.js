@@ -1,11 +1,6 @@
 import BaseWidget from './BaseWidget.js';
-import {
-  utils
-} from '../utils.js';
-import {
-  settings,
-  select
-} from '../settings.js';
+import {utils} from '../utils.js';
+import {settings, select} from '../settings.js';
 
 class DatePicker extends BaseWidget {
   constructor(wrapper) {
@@ -13,7 +8,6 @@ class DatePicker extends BaseWidget {
 
     const thisWidget = this;
 
-    thisWidget.dom = {};
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
 
     thisWidget.initPlugin();
