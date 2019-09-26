@@ -1,0 +1,59 @@
+/* global */
+
+
+/* boxes */
+.boxes-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 3em;
+}
+
+.boxes-item {
+  flex: 0 0 50%;
+}
+
+
+
+/* Section Works */
+
+.works {
+  padding-bottom: 0;
+
+  .works-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      .works-item {
+          flex: 0 0 50%;
+          padding: 3em 1em 3em 4em;
+
+          .photo {
+              img {
+                  object-fit: cover;
+                  width: 100%;
+                  height: 100%;
+                  display: block;
+              }
+          }
+      }
+  }
+}
+
+/*.grey {
+  background-color: $color-two;
+}
+*/
+
+
+/* slider */
+
+
+
+/* gallery */
+
+
+
+/* footer */

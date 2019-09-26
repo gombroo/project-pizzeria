@@ -199,7 +199,7 @@ class Booking {
     const thisBooking = this;
 
     for(let table of thisBooking.dom.tables){
-      table.classList.add(tableSelected);
+      table.classList.add(this.tableSelected);
     }
     this.tableSelected = null;
   }
