@@ -36,17 +36,16 @@ class DatePicker extends BaseWidget {
       ],
       onChange: function (selectedDates, dateStr) {
         thisWidget.value = dateStr;
+
       }
     });
   }
 
-  parseValue() {
-    const thisWidget = this;
-    return thisWidget.value;
-    // return this.value;
+  parseValue(value) {
+    return value;
   }
 
-  inValue() {
+  isValid() {
     return true;
   }
 

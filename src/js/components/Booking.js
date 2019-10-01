@@ -157,6 +157,8 @@ class Booking {
 
     thisBooking.dom.wrapper = element;
 
+    thisBooking.dom.selectedTable = null;
+
     thisBooking.html = utils.createDOMFromHTML(generatedHTML);
     thisBooking.dom.wrapper.appendChild(thisBooking.html);
 
@@ -185,12 +187,22 @@ class Booking {
       thisBooking.refreshTable();
     });
 
+    thisBooking.dom.datePicker.addEventListener('updated', function(){
+      thisBooking.refreshTable();
+    });
+
     for(let table of thisBooking.dom.tables){
 
       table.addEventListener('click', function(){
 
-        thisBooking.table.classList.add(classNames.booking.tableSelected);
-        this.tableSelected = table;
+        for(let table of thisBooking.dom.tables){
+          table.classList.remove(classNames.booking.tableSelected);
+        }
+
+        thisBooking.refreshTable();
+
+        thisBooking.dom.selectedTable = table;
+        thisBooking.dom.selectedTable.classList.add(classNames.booking.tableSelected);
       });
     }
   }
@@ -199,9 +211,9 @@ class Booking {
     const thisBooking = this;
 
     for(let table of thisBooking.dom.tables){
-      table.classList.add(this.tableSelected);
+      table.classList.remove(classNames.booking.tableSelected);
     }
-    this.tableSelected = null;
+    thisBooking.dom.tableSelected = null;
   }
 
   sendReservation(){
@@ -211,7 +223,7 @@ class Booking {
     const payload = {
       date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
-      table: thisBooking.tableSelected,
+      table: thisBooking.tableSelected.dataset('table'),
       duration: thisBooking.hoursAmount.value,
       people: thisBooking.peopleAmount.value,
     };

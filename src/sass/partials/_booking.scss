@@ -173,6 +173,10 @@
       }
 
     }
+
+    &.selected {
+      background: ligthen($color-success, 60%);
+    }
   }
 
   [data-table="1"] {
