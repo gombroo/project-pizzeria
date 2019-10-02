@@ -1,9 +1,14 @@
-import {settings, select, classNames, templates} from '../settings.js';
+import {
+  settings,
+  select,
+  classNames,
+  templates
+} from '../settings.js';
 import utils from '../utils.js';
 import CartProduct from './CartProduct.js';
 
-class Cart{
-  constructor(element){
+export default class Cart {
+  constructor(element) {
     const thisCart = this;
 
     thisCart.products = [];
@@ -15,7 +20,7 @@ class Cart{
     // console.log('new Cart', thisCart);
   }
 
-  getElements(element){
+  getElements(element) {
     const thisCart = this;
 
     thisCart.dom = {};
@@ -29,37 +34,37 @@ class Cart{
 
     thisCart.renderTotalsKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
 
-    for(let key of thisCart.renderTotalsKeys){
+    for (let key of thisCart.renderTotalsKeys) {
       thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
     }
     // console.log(Cart);
   }
 
-  initActions(){
+  initActions() {
     const thisCart = this;
 
-    thisCart.dom.toggleTrigger.addEventListener('click', function(){
+    thisCart.dom.toggleTrigger.addEventListener('click', function () {
       thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
     });
 
-    thisCart.dom.productList.addEventListener('updated', function(){
+    thisCart.dom.productList.addEventListener('updated', function () {
       thisCart.update();
     });
 
-    thisCart.dom.productList.addEventListener('remove', function(){
+    thisCart.dom.productList.addEventListener('remove', function () {
       thisCart.remove(event.detail.cartProduct);
     });
 
     // console.log('Show form:', thisCart.dom.form);
 
-    thisCart.dom.formSubmit.addEventListener('click', function(event){
+    thisCart.dom.formSubmit.addEventListener('click', function (event) {
       event.preventDefault();
       console.log('dupa blada');
       thisCart.sendOrder();
     });
   }
 
-  sendOrder(){
+  sendOrder() {
     const thisCart = this;
     const url = settings.db.url + '/' + settings.db.order;
 
@@ -73,7 +78,7 @@ class Cart{
       products: [],
     };
 
-    for(let product of thisCart.products){
+    for (let product of thisCart.products) {
       payload.products.push(product.getData());
       // tablica.dodajemy(to co zwracaane przez getData);
     }
@@ -87,15 +92,15 @@ class Cart{
     };
 
     fetch(url, options)
-      .then(function(response) {
+      .then(function (response) {
         return response.json();
       })
-      .then(function(parsedResponse) {
+      .then(function (parsedResponse) {
         console.log('parsedResponse', parsedResponse);
       });
   }
 
-  add(menuProduct){
+  add(menuProduct) {
     const thisCart = this;
 
     /* generate HTML based on template */
@@ -122,13 +127,13 @@ class Cart{
     thisCart.update();
   }
 
-  update(){
+  update() {
     const thisCart = this;
 
     thisCart.totalNumber = 0;
     thisCart.subtotalPrice = 0;
 
-    for(let singleProduct of thisCart.products){
+    for (let singleProduct of thisCart.products) {
       thisCart.subtotalPrice = thisCart.subtotalPrice + singleProduct.price;
       //thisCart.subtotalPrice += singleProduct.price; // też działa
       thisCart.totalNumber = thisCart.totalNumber + singleProduct.amount;
@@ -137,8 +142,8 @@ class Cart{
 
     thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
 
-    for(let key of thisCart.renderTotalsKeys){
-      for(let elem of thisCart.dom[key]){
+    for (let key of thisCart.renderTotalsKeys) {
+      for (let elem of thisCart.dom[key]) {
         elem.innerHTML = thisCart[key];
       }
     }
@@ -148,7 +153,7 @@ class Cart{
     // console.log('thisCart.totalPrice', thisCart.totalPrice);
   }
 
-  remove(cartProduct){
+  remove(cartProduct) {
     const thisCart = this;
 
     const index = thisCart.products.indexOf(cartProduct);
@@ -161,7 +166,5 @@ class Cart{
     thisCart.update();
   }
 
-/* END class Cart */
+  /* END class Cart */
 }
-
-export default Cart;

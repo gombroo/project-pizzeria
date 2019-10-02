@@ -1,4 +1,8 @@
-import {settings, select, classNames} from './settings.js';
+import {
+  settings,
+  select,
+  classNames
+} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
@@ -13,7 +17,7 @@ const app = {
     thisApp.activatePage(thisApp.pages[0].id);
 
     for (let link of thisApp.navLinks) {
-      link.addEventListener('click', function(event) {
+      link.addEventListener('click', function (event) {
         const clickedElement = this;
         event.preventDefault();
 
@@ -29,7 +33,7 @@ const app = {
     }
   },
 
-  activatePage: function(pageId) {
+  activatePage: function (pageId) {
     const thisApp = this;
 
     /* add class "active" to matching pages, remove from non-matching */
@@ -99,7 +103,7 @@ const app = {
     });
   },
 
-  initBooking: function(){
+  initBooking: function () {
     const thisApp = this;
     const bookingElem = document.querySelector(select.containerOf.booking); // kontener widżetu
 

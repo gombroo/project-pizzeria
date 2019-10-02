@@ -1,8 +1,10 @@
-import {select} from '../settings.js';
+import {
+  select
+} from '../settings.js';
 import AmountWidget from './AmountWidget.js';
 
-class CartProduct{
-  constructor(menuProduct, element){
+export default class CartProduct {
+  constructor(menuProduct, element) {
     const thisCartProduct = this; // single product in cart
 
     thisCartProduct.id = menuProduct.id;
@@ -20,7 +22,7 @@ class CartProduct{
     //console.log('productData', menuProduct);
   }
 
-  getElements(element){
+  getElements(element) {
     const thisCartProduct = this;
 
     thisCartProduct.dom = {};
@@ -31,12 +33,12 @@ class CartProduct{
     thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
   }
 
-  initAmountWidget(){
+  initAmountWidget() {
     const thisCartProduct = this;
 
     thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
 
-    thisCartProduct.dom.amountWidget.addEventListener('updated', function(){
+    thisCartProduct.dom.amountWidget.addEventListener('updated', function () {
       thisCartProduct.amount = thisCartProduct.amountWidget.value;
       thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
 
@@ -44,7 +46,7 @@ class CartProduct{
     });
   }
 
-  remove(){
+  remove() {
     const thisCartProduct = this;
 
     const event = new CustomEvent('remove', {
@@ -56,20 +58,20 @@ class CartProduct{
     thisCartProduct.dom.wrapper.dispatchEvent(event);
   }
 
-  initActions(){
+  initActions() {
     const thisCartProduct = this;
 
-    thisCartProduct.dom.edit.addEventListener('click', function(event){
+    thisCartProduct.dom.edit.addEventListener('click', function (event) {
       event.preventDefault();
     });
 
-    thisCartProduct.dom.remove.addEventListener('click', function(event){
+    thisCartProduct.dom.remove.addEventListener('click', function (event) {
       event.preventDefault();
       thisCartProduct.remove();
     });
   }
 
-  getData(){
+  getData() {
     const thisCartProduct = this;
 
     const productInfo = {
@@ -82,7 +84,5 @@ class CartProduct{
     return productInfo;
   }
 
-/* END cart Product */
+  /* END cart Product */
 }
-
-export default CartProduct;
