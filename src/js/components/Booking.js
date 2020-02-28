@@ -1,15 +1,8 @@
-import {
-  select,
-  templates,
-  settings,
-  classNames
-} from '../settings.js';
+import { select, templates, settings, classNames } from '../settings.js';
 import AmountWidget from './AmountWidget.js';
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
-import {
-  utils
-} from '../utils.js';
+import { utils } from '../utils.js';
 
 
 export default class Booking {
@@ -99,6 +92,7 @@ export default class Booking {
         }
       }
     }
+    thisBooking.initTableAvailability();
     thisBooking.updateDOM();
   }
 
@@ -175,6 +169,8 @@ export default class Booking {
 
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
 
+    this.dom.availabilityRangeSlider = document.querySelector('#availability');
+
     console.log('thisBooking.dom.tables', thisBooking.dom.tables);
   }
 
@@ -248,5 +244,37 @@ export default class Booking {
       .then(function (parsedResponse) {
         console.log('parsedResponse', parsedResponse);
       });
+  }
+
+  initTableAvailability() {
+
+    const thisBooking = this;
+    const date = thisBooking.datePicker.value;
+    const table = 1;
+    const tableAvailability = [];
+
+    console.log('Booked: ', thisBooking.booked);
+
+    for (let i = settings.hours.open; i < settings.hours.close; i += 0.5) {
+      if (thisBooking.booked[date][i]) {
+        thisBooking.booked[date][i].push[table];
+      } else {
+        thisBooking.booked[date][i] = [];
+      }
+      tableAvailability.push(thisBooking.booked[date][i].length);
+    }
+
+    for (let i = 0; i < tableAvailability.length; i++) {
+      const divRangeSlider = document.createElement('div');
+      divRangeSlider.classList.add('availability-div');
+      if (tableAvailability[i] === 1 || tableAvailability[i] === 2) {
+        divRangeSlider.classList.add('medium');
+      } else if (tableAvailability[i] === 3) {
+        divRangeSlider.classList.add('full');
+      } else {
+        divRangeSlider.classList.add('empty');
+      }
+      this.dom.availabilityRangeSlider.appendChild(divRangeSlider);
+    }
   }
 }
